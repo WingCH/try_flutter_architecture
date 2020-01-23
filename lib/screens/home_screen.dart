@@ -2,13 +2,10 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:try_flutter_architecture/models/app_state.dart';
 import 'package:try_flutter_architecture/helper/keys.dart';
 import 'package:try_flutter_architecture/helper/routes_path.dart';
 import 'package:try_flutter_architecture/models/app_tab.dart';
-import 'package:try_flutter_architecture/models/todo.dart';
 import 'package:try_flutter_architecture/models/visibility_filter.dart';
 import 'package:try_flutter_architecture/widgets/extra_actions_button.dart';
 import 'package:try_flutter_architecture/widgets/filter_button.dart';
@@ -60,14 +57,7 @@ class HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      body: activeTab == AppTab.todos
-          ? TodoList(
-              filteredTodos: [
-                Todo('Demo', complete: false, note: 'demo note'),
-                Todo('Demo', complete: false, note: 'demo note')
-              ],
-            )
-          : StatsCounter(),
+      body: activeTab == AppTab.todos ? TodoList() : StatsCounter(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed(context, RoutesPath.addTodo);
@@ -84,10 +74,10 @@ class HomeScreenState extends State<HomeScreen> {
           return BottomNavigationBarItem(
             icon: Icon(
               tab == AppTab.todos ? Icons.list : Icons.show_chart,
-              key: tab == AppTab.stats ? Keys.statsTab : Keys.todoTab,
+              key: tab == AppTab.todos ? Keys.todoTab : Keys.statsTab,
             ),
             title: Text(
-              tab == AppTab.stats ? "Stats" : "Todos",
+              tab == AppTab.todos ? "Todos" : "Stats",
             ),
           );
         }).toList(),
