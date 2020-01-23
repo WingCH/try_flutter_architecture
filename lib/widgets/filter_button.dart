@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:try_flutter_architecture/models/app_state.dart';
 import 'package:try_flutter_architecture/helper/keys.dart';
+import 'package:try_flutter_architecture/models/visibility_filter.dart';
 
 class FilterButton extends StatelessWidget {
   final PopupMenuItemSelected<VisibilityFilter> onSelected;

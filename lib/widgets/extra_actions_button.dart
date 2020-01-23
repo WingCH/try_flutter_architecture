@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:try_flutter_architecture/models/app_state.dart';
 import 'package:try_flutter_architecture/helper/keys.dart';
+import 'package:try_flutter_architecture/models/extra_action.dart';
 
 class ExtraActionsButton extends StatelessWidget {
   final PopupMenuItemSelected<ExtraAction> onSelected;
