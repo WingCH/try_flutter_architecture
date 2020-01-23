@@ -4,7 +4,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:try_flutter_architecture/app_state.dart';
+import 'package:try_flutter_architecture/models/app_state.dart';
 import 'package:try_flutter_architecture/helper/keys.dart';
 import 'package:try_flutter_architecture/helper/routes_path.dart';
 import 'package:try_flutter_architecture/widgets/extra_actions_button.dart';

@@ -3,18 +3,14 @@
 // in the LICENSE file.
 
 
-import 'helper/uuid.dart';
-import 'models/todo_entity.dart';
-
+import '../helper/uuid.dart';
 class AppState {
   bool isLoading;
   List<Todo> todos;
-  int count;
 
   AppState({
     this.isLoading = false,
     this.todos = const [],
-    this.count = 1
   });
 
 //  factory AppState.loading() => AppState(isLoading: true);
@@ -102,18 +98,6 @@ class Todo {
     return 'Todo{complete: $complete, task: $task, note: $note, id: $id}';
   }
 
-  TodoEntity toEntity() {
-    return TodoEntity(task, id, note, complete);
-  }
-
-  static Todo fromEntity(TodoEntity entity) {
-    return Todo(
-      entity.task,
-      complete: entity.complete ?? false,
-      note: entity.note,
-      id: entity.id ?? Uuid().generateV4(),
-    );
-  }
 }
 
 enum VisibilityFilter { all, active, completed }

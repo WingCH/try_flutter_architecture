@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:try_flutter_architecture/app_state.dart';
 import 'package:try_flutter_architecture/screens/add_edit_screen.dart';
 import 'package:try_flutter_architecture/screens/home_screen.dart';
 
@@ -14,7 +13,6 @@ class TodoApp extends StatefulWidget {
 }
 
 class TodoAppState extends State<TodoApp> {
-//  AppState appState;
 
   @override
   void initState() {
