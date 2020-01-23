@@ -7,18 +7,7 @@ import 'helper/theme.dart';
 
 void main() => runApp(TodoApp());
 
-class TodoApp extends StatefulWidget {
-  @override
-  TodoAppState createState() => new TodoAppState();
-}
-
-class TodoAppState extends State<TodoApp> {
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class TodoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
