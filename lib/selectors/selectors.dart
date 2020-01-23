@@ -1,0 +1,47 @@
+import 'package:try_flutter_architecture/models/models.dart';
+
+List<Todo> todosSelector(AppState state) => state.todos;
+
+VisibilityFilter activeFilterSelector(AppState state) => state.activeFilter;
+
+AppTab activeTabSelector(AppState state) => state.activeTab;
+
+bool isLoadingSelector(AppState state) => state.isLoading;
+
+bool allCompleteSelector(List<Todo> todos) =>
+    todos.every((todo) => todo.complete);
+
+int numActiveSelector(List<Todo> todos) => activeTodosSelector(todos).length;
+
+int numCompletedSelector(List<Todo> todos) =>
+    completeTodosSelector(todos).length;
+
+List<Todo> activeTodosSelector(List<Todo> todos) =>
+    todos.where((todo) => !todo.complete).toList();
+
+List<Todo> completeTodosSelector(List<Todo> todos) =>
+    todos.where((todo) => todo.complete).toList();
+
+List<Todo> filteredTodosSelector(
+    List<Todo> todos,
+    VisibilityFilter activeFilter,
+    ) {
+  switch (activeFilter) {
+    case VisibilityFilter.active:
+      return activeTodosSelector(todos);
+    case VisibilityFilter.completed:
+      return completeTodosSelector(todos);
+    case VisibilityFilter.all:
+    default:
+      return todos;
+  }
+}
+
+//TODO: 要自己update翻
+//Optional<Todo> todoSelector(List<Todo> todos, String id) {
+//  try {
+//    return Optional.of(todos.firstWhere((todo) => todo.id == id));
+//  } catch (e) {
+//    return Optional.absent();
+//  }
+//}
