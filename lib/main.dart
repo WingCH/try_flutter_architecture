@@ -38,7 +38,12 @@ class TodoApp extends StatelessWidget {
           RoutesPath.home: (context) {
             return HomeScreen(
               onInit: () {
-                StoreProvider.of<AppState>(context).dispatch(LoadTodosAction());
+                //Load empty data
+                StoreProvider.of<AppState>(context).dispatch(
+                  TodosLoadedAction(
+                      []
+                  ),
+                );
               },
             );
           },
