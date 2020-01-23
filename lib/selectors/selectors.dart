@@ -23,9 +23,9 @@ List<Todo> completeTodosSelector(List<Todo> todos) =>
     todos.where((todo) => todo.complete).toList();
 
 List<Todo> filteredTodosSelector(
-    List<Todo> todos,
-    VisibilityFilter activeFilter,
-    ) {
+  List<Todo> todos,
+  VisibilityFilter activeFilter,
+) {
   switch (activeFilter) {
     case VisibilityFilter.active:
       return activeTodosSelector(todos);
@@ -37,7 +37,7 @@ List<Todo> filteredTodosSelector(
   }
 }
 
-//TODO: 要自己update翻
+//TODO: todoSelector 要自己update翻
 //Optional<Todo> todoSelector(List<Todo> todos, String id) {
 //  try {
 //    return Optional.of(todos.firstWhere((todo) => todo.id == id));
@@ -45,3 +45,7 @@ List<Todo> filteredTodosSelector(
 //    return Optional.absent();
 //  }
 //}
+
+Todo todoSelector(List<Todo> todos, String id) {
+  return todos.firstWhere((todo) => todo.id == id);
+}

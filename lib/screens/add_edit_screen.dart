@@ -2,65 +2,71 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:try_flutter_architecture/models/app_state.dart';
 import 'package:try_flutter_architecture/helper/keys.dart';
 import 'package:try_flutter_architecture/models/todo.dart';
 
+typedef OnSaveCallback = void Function(String task, String note);
+
 class AddEditScreen extends StatefulWidget {
+  final bool isEditing;
+  final OnSaveCallback onSave;
   final Todo todo;
 
-  AddEditScreen({
-    Key key,
-    this.todo,
-  }) : super(key: key ?? Keys.addTodoScreen);
+  AddEditScreen(
+      {Key key, @required this.onSave, @required this.isEditing, this.todo})
+      : super(key: key ?? Keys.addTodoScreen);
 
   @override
   _AddEditScreenState createState() => _AddEditScreenState();
 }
 
 class _AddEditScreenState extends State<AddEditScreen> {
-  static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String _task;
   String _note;
 
+  bool get isEditing => widget.isEditing;
+
   @override
   Widget build(BuildContext context) {
+//    final localizations = ArchSampleLocalizations.of(context);
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(isEditing ? "Edit Todo" : "Add Todo"),
+        title: Text(
+          isEditing ? "editTodo" : "addTodo",
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Form(
-          key: formKey,
-          autovalidate: false,
-          onWillPop: () {
-            return Future(() => true);
-          },
+          key: _formKey,
           child: ListView(
             children: [
               TextFormField(
-                initialValue: widget.todo != null ? widget.todo.task : '',
+                initialValue: isEditing ? widget.todo.task : '',
                 key: Keys.taskField,
-                autofocus: isEditing ? false : true,
-                style: Theme.of(context).textTheme.headline,
-                decoration: InputDecoration(hintText: "What needs to be done?"),
-                validator: (val) =>
-                    val.trim().isEmpty ? "Please enter some text" : null,
+                autofocus: !isEditing,
+                style: textTheme.headline,
+                decoration: InputDecoration(
+                  hintText: "newTodoHint",
+                ),
+                validator: (val) {
+                  return val.trim().isEmpty ? "emptyTodoError" : null;
+                },
                 onSaved: (value) => _task = value,
               ),
               TextFormField(
-                initialValue: widget.todo != null ? widget.todo.note : '',
+                initialValue: isEditing ? widget.todo.note : '',
                 key: Keys.noteField,
                 maxLines: 10,
-                style: Theme.of(context).textTheme.subhead,
+                style: textTheme.subhead,
                 decoration: InputDecoration(
-                  hintText: "Additional Notes...",
+                  hintText: "notesHint",
                 ),
                 onSaved: (value) => _note = value,
               )
@@ -69,30 +75,18 @@ class _AddEditScreenState extends State<AddEditScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-          key: isEditing
-              ? Keys.saveTodoFab
-              : Keys.saveNewTodo,
-          tooltip: isEditing ? "Save changes" : "Add Todo",
-          child: Icon(isEditing ? Icons.check : Icons.add),
-          onPressed: () {
-            final form = formKey.currentState;
-            if (form.validate()) {
-              form.save();
+        key: isEditing ? Keys.saveTodoFab : Keys.saveNewTodo,
+        tooltip: isEditing ? "saveChanges" : "addTodo",
+        child: Icon(isEditing ? Icons.check : Icons.add),
+        onPressed: () {
+          if (_formKey.currentState.validate()) {
+            _formKey.currentState.save();
+            widget.onSave(_task, _note);
 
-              final task = _task;
-              final note = _note;
-
-              if (isEditing) {
-                //updateTodo
-              } else {
-                //addTodo
-              }
-
-              Navigator.pop(context);
-            }
-          }),
+            Navigator.pop(context);
+          }
+        },
+      ),
     );
   }
-
-  bool get isEditing => widget.todo != null;
 }

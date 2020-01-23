@@ -3,85 +3,56 @@
 // in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:try_flutter_architecture/containers/active_tab.dart';
+import 'package:try_flutter_architecture/containers/extra_actions_container.dart';
+import 'package:try_flutter_architecture/containers/filter_selector.dart';
+import 'package:try_flutter_architecture/containers/filtered_todos.dart';
+import 'package:try_flutter_architecture/containers/stats.dart';
+import 'package:try_flutter_architecture/containers/tab_selector.dart';
 import 'package:try_flutter_architecture/helper/keys.dart';
 import 'package:try_flutter_architecture/helper/routes_path.dart';
 import 'package:try_flutter_architecture/models/app_tab.dart';
-import 'package:try_flutter_architecture/models/visibility_filter.dart';
-import 'package:try_flutter_architecture/widgets/extra_actions_button.dart';
-import 'package:try_flutter_architecture/widgets/filter_button.dart';
-import 'package:try_flutter_architecture/widgets/stats_counter.dart';
-import 'package:try_flutter_architecture/widgets/todo_list.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen();
+  final void Function() onInit;
+
+  HomeScreen({@required this.onInit}) : super(key: Keys.homeScreen);
 
   @override
-  State<StatefulWidget> createState() {
-    return HomeScreenState();
-  }
+  HomeScreenState createState() => HomeScreenState();
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  VisibilityFilter activeFilter = VisibilityFilter.all;
-  AppTab activeTab = AppTab.todos;
-
-  void _updateVisibility(VisibilityFilter filter) {
-    setState(() {
-      activeFilter = filter;
-    });
-  }
-
-  void _updateTab(AppTab tab) {
-    setState(() {
-      activeTab = tab;
-    });
+  @override
+  void initState() {
+    widget.onInit();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("XXX Example"),
-        actions: [
-          FilterButton(
-            isActive: activeTab == AppTab.todos,
-            activeFilter: activeFilter,
-            onSelected: _updateVisibility,
+    return ActiveTab(
+      builder: (BuildContext context, AppTab activeTab) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text("Redux demo"),
+            actions: [
+              FilterSelector(visible: activeTab == AppTab.todos),
+              ExtraActionsContainer(),
+            ],
           ),
-          ExtraActionsButton(
-            allComplete: false,
-            hasCompletedTodos: false,
-            onSelected: (action) {
-              print(action.toString());
+          body: activeTab == AppTab.todos ? FilteredTodos() : Stats(),
+          floatingActionButton: FloatingActionButton(
+            key: Keys.addTodoFab,
+            onPressed: () {
+              Navigator.pushNamed(context, RoutesPath.addTodo);
             },
-          )
-        ],
-      ),
-      body: activeTab == AppTab.todos ? TodoList() : StatsCounter(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, RoutesPath.addTodo);
-        },
-        child: Icon(Icons.add),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        key: Keys.tabs,
-        currentIndex: AppTab.values.indexOf(activeTab),
-        onTap: (index) {
-          _updateTab(AppTab.values[index]);
-        },
-        items: AppTab.values.map((tab) {
-          return BottomNavigationBarItem(
-            icon: Icon(
-              tab == AppTab.todos ? Icons.list : Icons.show_chart,
-              key: tab == AppTab.todos ? Keys.todoTab : Keys.statsTab,
-            ),
-            title: Text(
-              tab == AppTab.todos ? "Todos" : "Stats",
-            ),
-          );
-        }).toList(),
-      ),
+            child: Icon(Icons.add),
+            tooltip: "addTodo",
+          ),
+          bottomNavigationBar: TabSelector(),
+        );
+      },
     );
   }
 }
