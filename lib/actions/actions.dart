@@ -2,6 +2,7 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
+//應該係interface
 import 'package:try_flutter_architecture/models/models.dart';
 
 class ClearCompletedAction {}

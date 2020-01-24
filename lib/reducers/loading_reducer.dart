@@ -5,6 +5,7 @@
 import 'package:redux/redux.dart';
 import 'package:try_flutter_architecture/actions/actions.dart';
 
+//因為第一下係AppState.loading(), 之後TodosLoadedAction / TodosNotLoadedAction
 final loadingReducer = combineReducers<bool>([
   TypedReducer<bool, TodosLoadedAction>(_setLoaded),
   TypedReducer<bool, TodosNotLoadedAction>(_setLoaded),

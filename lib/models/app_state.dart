@@ -21,19 +21,19 @@ class AppState {
 
   factory AppState.loading() => AppState(isLoading: true);
 
-  AppState copyWith({
-    bool isLoading,
-    List<Todo> todos,
-    AppTab activeTab,
-    VisibilityFilter activeFilter,
-  }) {
-    return AppState(
-      isLoading: isLoading ?? this.isLoading,
-      todos: todos ?? this.todos,
-      activeTab: activeTab ?? this.activeTab,
-      activeFilter: activeFilter ?? this.activeFilter,
-    );
-  }
+//  AppState copyWith({
+//    bool isLoading,
+//    List<Todo> todos,
+//    AppTab activeTab,
+//    VisibilityFilter activeFilter,
+//  }) {
+//    return AppState(
+//      isLoading: isLoading ?? this.isLoading,
+//      todos: todos ?? this.todos,
+//      activeTab: activeTab ?? this.activeTab,
+//      activeFilter: activeFilter ?? this.activeFilter,
+//    );
+//  }
 
   @override
   int get hashCode =>
