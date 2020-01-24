@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:try_flutter_architecture/actions/actions.dart';
 import 'package:try_flutter_architecture/models/app_state.dart';
+import 'package:try_flutter_architecture/models/todo.dart';
 import 'package:try_flutter_architecture/reducers/app_state_reducer.dart';
 import 'package:try_flutter_architecture/screens/add_edit_screen.dart';
 import 'package:try_flutter_architecture/screens/home_screen.dart';
@@ -41,7 +42,13 @@ class TodoApp extends StatelessWidget {
                 //Load empty data
                 StoreProvider.of<AppState>(context).dispatch(
                   TodosLoadedAction(
-                      []
+                      [
+                        Todo("demo 1"),
+                        Todo("demo 2", complete: true),
+                        Todo("demo 3"),
+                        Todo("demo 4", note: "notes here"),
+                        Todo("demo 5"),
+                      ]
                   ),
                 );
               },
