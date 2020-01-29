@@ -13,20 +13,21 @@ import 'helper/routes_path.dart';
 import 'helper/theme.dart';
 
 void main() {
-  final store = Store<AppState>(
-    appReducer,
-    initialState: AppState.loading(),
-    middleware: [],
-  );
-  runApp(TodoApp(
-    store: store,
-  ));
+  runApp(TodoApp());
 }
 
 class TodoApp extends StatelessWidget {
   final Store<AppState> store;
 
-  const TodoApp({Key key, this.store}) : super(key: key);
+  //initializer variable(store) in constructor
+  //https://stackoverflow.com/questions/50274605/colon-after-constructor-in-dart
+  TodoApp({Key key})
+      : store = Store<AppState>(
+          appReducer,
+          initialState: AppState.loading(),
+          middleware: [],
+        ),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,15 +42,13 @@ class TodoApp extends StatelessWidget {
               onInit: () {
                 //Load empty data
                 StoreProvider.of<AppState>(context).dispatch(
-                  TodosLoadedAction(
-                      [
-                        Todo("demo 1"),
-                        Todo("demo 2", complete: true),
-                        Todo("demo 3"),
-                        Todo("demo 4", note: "notes here"),
-                        Todo("demo 5"),
-                      ]
-                  ),
+                  TodosLoadedAction([
+                    Todo("demo 1"),
+                    Todo("demo 2", complete: true),
+                    Todo("demo 3"),
+                    Todo("demo 4", note: "notes here"),
+                    Todo("demo 5"),
+                  ]),
                 );
               },
             );
