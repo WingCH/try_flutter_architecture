@@ -25,7 +25,9 @@ class TodoApp extends StatelessWidget {
       : store = Store<AppState>(
           appReducer,
           initialState: AppState.loading(),
-          middleware: [],
+          middleware: [
+            
+          ],
         ),
         super(key: key);
 
