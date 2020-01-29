@@ -5,6 +5,7 @@
 
 import 'package:meta/meta.dart';
 import 'package:try_flutter_architecture/helper/uuid.dart';
+import 'package:try_flutter_architecture/repositorys/todo_entity.dart';
 
 @immutable
 class Todo {
@@ -43,5 +44,18 @@ class Todo {
   @override
   String toString() {
     return 'Todo{complete: $complete, task: $task, note: $note, id: $id}';
+  }
+
+  TodoEntity toEntity() {
+    return TodoEntity(task, id, note, complete);
+  }
+
+  static Todo fromEntity(TodoEntity entity) {
+    return Todo(
+      entity.task,
+      complete: entity.complete ?? false,
+      note: entity.note,
+      id: entity.id ?? Uuid().generateV4(),
+    );
   }
 }

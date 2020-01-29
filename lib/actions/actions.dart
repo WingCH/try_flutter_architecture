@@ -9,7 +9,16 @@ class ClearCompletedAction {}
 
 class ToggleAllAction {}
 
-class LoadTodosAction {}
+class LoadTodosAction {
+  final List<Todo> todos;
+
+  LoadTodosAction(this.todos);
+
+  @override
+  String toString() {
+    return 'LoadTodosAction{todos: $todos}';
+  }
+}
 
 class TodosNotLoadedAction {}
 
@@ -77,5 +86,19 @@ class UpdateTabAction {
   @override
   String toString() {
     return 'UpdateTabAction{newTab: $newTab}';
+  }
+}
+
+class InitAppAction {
+  @override
+  String toString() {
+    return 'InitAppAction{}';
+  }
+}
+
+class ConnectToDataSourceAction {
+  @override
+  String toString() {
+    return 'ConnectToDataSourceAction{}';
   }
 }
