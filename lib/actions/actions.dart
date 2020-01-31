@@ -5,9 +5,20 @@
 //應該係interface
 import 'package:try_flutter_architecture/models/models.dart';
 
-class ClearCompletedAction {}
+class InitAppAction {
+  @override
+  String toString() {
+    return 'InitAppAction{}';
+  }
+}
 
-class ToggleAllAction {}
+class ConnectToDataSourceAction {
+  @override
+  String toString() {
+    return 'ConnectToDataSourceAction{}';
+  }
+}
+
 
 class LoadTodosAction {
   final List<Todo> todos;
@@ -17,19 +28,6 @@ class LoadTodosAction {
   @override
   String toString() {
     return 'LoadTodosAction{todos: $todos}';
-  }
-}
-
-class TodosNotLoadedAction {}
-
-class TodosLoadedAction {
-  final List<Todo> todos;
-
-  TodosLoadedAction(this.todos);
-
-  @override
-  String toString() {
-    return 'TodosLoadedAction{todos: $todos}';
   }
 }
 
@@ -89,16 +87,6 @@ class UpdateTabAction {
   }
 }
 
-class InitAppAction {
-  @override
-  String toString() {
-    return 'InitAppAction{}';
-  }
-}
+class ClearCompletedAction {}
 
-class ConnectToDataSourceAction {
-  @override
-  String toString() {
-    return 'ConnectToDataSourceAction{}';
-  }
-}
+class ToggleAllAction {}

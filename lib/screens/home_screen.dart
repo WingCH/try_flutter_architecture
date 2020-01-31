@@ -14,9 +14,7 @@ import 'package:try_flutter_architecture/helper/routes_path.dart';
 import 'package:try_flutter_architecture/models/app_tab.dart';
 
 class HomeScreen extends StatefulWidget {
-  final void Function() onInit;
-
-  HomeScreen({@required this.onInit}) : super(key: Keys.homeScreen);
+  HomeScreen() : super(key: Keys.homeScreen);
 
   @override
   HomeScreenState createState() => HomeScreenState();
@@ -25,7 +23,6 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    widget.onInit();
     super.initState();
   }
 

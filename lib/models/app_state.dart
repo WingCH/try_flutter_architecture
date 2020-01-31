@@ -5,7 +5,6 @@
 import 'package:meta/meta.dart';
 import 'package:try_flutter_architecture/models/models.dart';
 
-
 @immutable
 class AppState {
   final bool isLoading;
@@ -13,27 +12,28 @@ class AppState {
   final AppTab activeTab;
   final VisibilityFilter activeFilter;
 
-  AppState(
-      {this.isLoading = false,
-        this.todos = const [],
-        this.activeTab = AppTab.todos,
-        this.activeFilter = VisibilityFilter.all});
+  AppState({
+    this.isLoading = false,
+    this.todos = const [],
+    this.activeTab = AppTab.todos,
+    this.activeFilter = VisibilityFilter.all,
+  });
 
   factory AppState.loading() => AppState(isLoading: true);
 
-//  AppState copyWith({
-//    bool isLoading,
-//    List<Todo> todos,
-//    AppTab activeTab,
-//    VisibilityFilter activeFilter,
-//  }) {
-//    return AppState(
-//      isLoading: isLoading ?? this.isLoading,
-//      todos: todos ?? this.todos,
-//      activeTab: activeTab ?? this.activeTab,
-//      activeFilter: activeFilter ?? this.activeFilter,
-//    );
-//  }
+  AppState copyWith({
+    bool isLoading,
+    List<Todo> todos,
+    AppTab activeTab,
+    VisibilityFilter activeFilter,
+  }) {
+    return AppState(
+      isLoading: isLoading ?? this.isLoading,
+      todos: todos ?? this.todos,
+      activeTab: activeTab ?? this.activeTab,
+      activeFilter: activeFilter ?? this.activeFilter,
+    );
+  }
 
   @override
   int get hashCode =>
@@ -45,12 +45,12 @@ class AppState {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is AppState &&
-              runtimeType == other.runtimeType &&
-              isLoading == other.isLoading &&
-              todos == other.todos &&
-              activeTab == other.activeTab &&
-              activeFilter == other.activeFilter;
+      other is AppState &&
+          runtimeType == other.runtimeType &&
+          isLoading == other.isLoading &&
+          todos == other.todos &&
+          activeTab == other.activeTab &&
+          activeFilter == other.activeFilter;
 
   @override
   String toString() {

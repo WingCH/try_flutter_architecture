@@ -18,6 +18,8 @@ import 'helper/routes_path.dart';
 import 'helper/theme.dart';
 
 void main() {
+  //https://stackoverflow.com/questions/57689492/flutter-unhandled-exception-servicesbinding-defaultbinarymessenger-was-accesse
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(TodoApp());
 }
 
@@ -39,7 +41,9 @@ class TodoApp extends StatelessWidget {
               userRepository: userRepository ??
                   FirebaseUserRepository(FirebaseAuth.instance)),
         ),
-        super(key: key);
+        super(key: key) {
+    store.dispatch(InitAppAction());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,20 +54,7 @@ class TodoApp extends StatelessWidget {
         theme: GenericTheme.theme,
         routes: {
           RoutesPath.home: (context) {
-            return HomeScreen(
-              onInit: () {
-                //Load empty data
-                StoreProvider.of<AppState>(context).dispatch(
-                  TodosLoadedAction([
-                    Todo("demo 1"),
-                    Todo("demo 2", complete: true),
-                    Todo("demo 3"),
-                    Todo("demo 4", note: "notes here"),
-                    Todo("demo 5"),
-                  ]),
-                );
-              },
-            );
+            return HomeScreen();
           },
           RoutesPath.addTodo: (context) {
             return AddTodo();
