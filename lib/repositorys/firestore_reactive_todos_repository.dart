@@ -17,15 +17,16 @@ class FirestoreReactiveTodosRepository {
       return firestore.collection(path).document(id).delete();
     }));
   }
-
   Stream<List<TodoEntity>> todos() {
-    return firestore.collection(path).snapshots().map((snapshot) {
+    //TODO: only create add time
+    return firestore.collection(path).orderBy('timestamp', descending: false).snapshots().map((snapshot) {
       return snapshot.documents.map((doc) {
         return TodoEntity(
           doc['task'],
           doc.documentID,
           doc['note'] ?? '',
           doc['complete'] ?? false,
+          doc['timestamp']
         );
       }).toList();
     });
